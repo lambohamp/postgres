@@ -38,10 +38,16 @@ resource "kubernetes_deployment" "postgres" {
           env {
             name  = "POSTGRES_DB"
             value = "my-db"
-            name  = "POSTGRES_USER"
-            value = "dimas"
+          }
+
+          env {
             name  = "POSTGRES_PASSWORD"
             value = "password1234"
+          }
+
+          env {
+            name  = "POSTGRES_USER"
+            value = "dimas"
           }
         }
       }
