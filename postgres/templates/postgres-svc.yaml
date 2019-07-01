@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: "{{ .Values.postgresSvc.name }}"
+spec:
+  selector:
+    app: "{{ .Values.postgresSvc.app }}"
+  ports:
+  - protocol: TCP
+    port: {{ .Values.postgresSvc.ports.port }}
+    targetPort: {{ .Values.postgresSvc.ports.targetPort }}

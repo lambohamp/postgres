@@ -1,0 +1,19 @@
+
+
+postgresSvc:
+  name: postgres-service
+  app: postgres
+  ports:
+    port: 5432
+    targetPort: 5432
+
+ingress:
+  name: postgres
+  enabled: true
+  port: 5432
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+  hosts:
+    host: postgres.3df3d824669644e8b037.eastus.aksapp.io
+    paths:
+      path: /
