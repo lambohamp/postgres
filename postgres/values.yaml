@@ -4,7 +4,7 @@ postgresSvc:
   name: postgres-service
   app: postgres
   ports:
-    port: 5432
+    port: 80
     targetPort: 5432
 
 ingress:
