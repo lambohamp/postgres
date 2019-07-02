@@ -13,5 +13,5 @@ spec:
         paths:
         - backend:
             serviceName: {{ .Values.postgresSvc.name }}
-            servicePort: {{ .Values.postgresSvc.port }}
+            servicePort: {{ .Values.postgresSvc.ports.port }}
           path: {{ .Values.ingress.hosts.paths.path }}
