@@ -6,4 +6,4 @@ subsets:
   - addresses:
       - ip: {{ .Values.postgresEndpoint.subsets.ip }}
     ports:
-      - port: {{ .Values.postgresSvc.ports.port }}
+      - port: {{ .Values.postgresSvc.ports.targetPort }}
