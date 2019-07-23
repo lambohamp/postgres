@@ -1,7 +1,12 @@
+resource "azurerm_resource_group" "gl" {
+  name     = "${var.rg}"
+  location = "${var.location}"
+}
+
 resource "azurerm_postgresql_server" "gl" {
   name                = "${var.server_name}"
   location            = "${var.location}"
-  resource_group_name = "${var.rg}"
+  resource_group_name = "${azurerm_resource_group.gl.name}"
 
   sku {
     name     = "B_Gen5_2"
@@ -22,7 +27,7 @@ resource "azurerm_postgresql_server" "gl" {
 
 resource "azurerm_postgresql_database" "gltest" {
   name                = "${var.db_name}"
-  resource_group_name = "${var.rg}"
+  resource_group_name = "${azurerm_resource_group.gl.name}"
   server_name         = "${azurerm_postgresql_server.gl.name}"
   charset             = "UTF8"
   collation           = "English_United States.1252"

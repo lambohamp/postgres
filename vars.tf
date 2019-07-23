@@ -19,7 +19,7 @@ variable "location" {
 }
 
 variable "rg" {
-  default = "k8s"
+  description = "Enter a name of a resource group (a new resource will be created)"
 }
 
 variable "storage" {
@@ -27,5 +27,5 @@ variable "storage" {
 }
 
 variable "db_name" {
-  default = "gl_db"
+  description = "Enter a database name"
 }
