@@ -2,17 +2,25 @@
 
 postgresSvc:
   name: postgres-service
-  app: postgres
   ports:
     port: 80
     targetPort: 5432
 
-ingress:
-  name: postgres
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: addon-http-application-routing
-  hosts:
-    host: postgres.31d94a21587448938742.eastus.aksapp.io
-    paths:
-      path: /
+postgresEndpoint:
+  name: postgres-endpoint
+  subsets:
+    ip: 191.238.6.43
+
+
+
+
+#ingress:
+#  name: postgres
+#  enabled: true
+#  annotations:
+#    kubernetes.io/ingress.class: addon-http-application-routing
+#  hosts:
+#    host: postgres.31d94a21587448938742.eastus.aksapp.io
+#    paths:
+#      path: /
+#

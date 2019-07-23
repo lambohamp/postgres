@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: "{{ .Values.postgresEndpoint.name }}"
+subsets:
+  - addresses:
+      - ip: {{ .Values.postgresEndpoint.subsets.ip }}
+    ports:
+      - port: {{ .Values.postgresSvc.ports.port }}
