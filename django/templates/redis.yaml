@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ .Values.redis.name }}
+spec:
+  selector:
+    matchLabels:
+      pod: {{ .Values.redis.labels.pod }}
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        pod: {{ .Values.redis.labels.pod }}
+    spec:
+      containers:
+      - name: {{ .Values.redis.name }}
+        image: redis
+        resources:
+          requests:
+            cpu: {{ .Values.redis.resources.requests.cpu }}
+            memory: {{ .Values.redis.resources.requests.memory }}
+        ports:
+        - containerPort: {{ .Values.redis.port.number }}

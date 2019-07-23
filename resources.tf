@@ -1,10 +1,12 @@
-resource "null_resource" "depends_on" {
-  triggers {
-    depends_on = "${join("", var.depends_on)}"
-  }
+provider "azurerm" {}
+
+resource "azurerm_resource_group" "gl" {
+  name     = "${var.rg}"
+  location = "${var.location}"
 }
 
 resource "azurerm_postgresql_server" "gl" {
+  depends_on          = ["azurerm_resource_group.gl"]
   name                = "${var.server_name}"
   location            = "${var.location}"
   resource_group_name = "${var.rg}"
@@ -24,8 +26,13 @@ resource "azurerm_postgresql_server" "gl" {
   administrator_login_password = "${var.password}"
   version                      = "10"
   ssl_enforcement              = "Enabled"
+}
 
-  depends_on = [
-    "null_resource.depends_on",
-  ]
+resource "azurerm_postgresql_database" "gltest" {
+  depends_on          = ["azurerm_postgresql_server.gl"]
+  name                = "${var.db_name}"
+  resource_group_name = "${var.rg}"
+  server_name         = "${var.server_name}"
+  charset             = "UTF8"
+  collation           = "English_United States.1252"
 }

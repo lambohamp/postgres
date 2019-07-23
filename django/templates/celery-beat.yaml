@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: "{{ .Values.celeryBeat.name }}"
+  labels:
+    deployment: "{{ .Values.celeryBeat.deployment }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      pod: "{{ .Values.celeryBeat.pod }}"
+  template:
+    metadata:
+      labels:
+        pod: "{{ .Values.celeryBeat.pod }}"
+    spec:
+      containers:
+        - name: "{{ .Values.celeryBeat.name }}"
+          image: "{{ .Values.django.image.name }}:{{ .Values.django.image.tag }}"
+          imagePullPolicy: {{ .Values.django.image.pullPolicy }}
+          command: ['celery', '-A', 'mysite', 'beat', '-l', 'info']
+          env:
+            - name: POSTGRES_USER
+              value: "{{ .Values.postgres.user }}"
+            - name: POSTGRES_PASSWORD
+              value: "{{ .Values.postgres.pass }}"
+            - name: POSTGRES_HOST
+              value: "{{ .Values.postgresSvc.name }}"
+            - name: REDIS_HOST
+              value: "{{ .Values.redisSvc.name }}"

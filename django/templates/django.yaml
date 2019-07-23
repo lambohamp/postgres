@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.django.name }}
+  labels:
+    app: {{ .Values.django.labels.app }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.django.labels.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.django.labels.app }}
+    spec:
+      containers:
+        - name: {{ .Values.django.name }}
+          image: "{{ .Values.django.image.name }}:{{ .Values.django.image.tag }}"
+          ports:
+          - containerPort: {{ .Values.django.port.number }}
+          imagePullPolicy: {{ .Values.django.image.pullPolicy }}
+          env:
+            - name: POSTGRES_USER
+              value: "{{ .Values.postgres.user }}"
+            - name: POSTGRES_PASSWORD
+              value: "{{ .Values.postgres.pass }}"
+            - name: POSTGRES_DB
+              value: "{{ .Values.postgres.db }}"
+            - name: POSTGRES_HOST
+              value: "{{ .Values.postgresSvc.name }}"
+            - name: REDIS_HOST
+              value: "{{ .Values.redisSvc.name }}"              

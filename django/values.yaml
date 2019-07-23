@@ -1,0 +1,77 @@
+replicaCount: 1
+
+postgres:
+  db: gldb
+  pass: Dallas13
+  user: dimas@gltesting
+  port: 5432
+
+postgresSvc:
+  name: postgres-service
+  ports:
+    port: 5432
+    targetPort: 5432
+
+postgresEndpoint:
+  subsets:
+    ip: 191.238.6.43 # IP address of PostgreSQL server
+
+redis:
+  name: master
+  labels:
+    pod: redis
+  port:
+    number: 6379
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+redisSvc:
+  name: redis-service
+  ports:
+    port: 6379
+    targetPort: 6379
+
+django:
+  name: django
+  labels:
+    app: django
+  image:
+    name: devopsintern2.azurecr.io/django
+    tag: "latest"
+    pullPolicy: Always
+  port:
+    number: 8082
+
+djangoSvc:
+  name: django-service
+  app: django
+  ports:
+    protocol: TCP
+    port: 80
+    targetPort: 8082
+
+celeryWrk:
+  name: celery-worker
+  deployment: celery-worker
+  pod: celery-worker
+
+celeryBeat:
+  name: celery-beat
+  deployment: celery-beat
+  pod: celery-beat
+
+migrations:
+  name: django-migrations
+
+ingress:
+  name: django
+  enabled: true
+  port: 80
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+  hosts:
+    host: django.7c2d2b19b40541d1a30b.eastus.aksapp.io
+    paths:
+      path: /

@@ -4,5 +4,6 @@ metadata:
   name: "{{ .Values.postgresSvc.name }}"
 spec:
   ports:
-  - port: {{ .Values.postgresSvc.ports.port }}
+  - protocol: TCP
+    port: {{ .Values.postgresSvc.ports.port }}
     targetPort: {{ .Values.postgresSvc.ports.targetPort }}

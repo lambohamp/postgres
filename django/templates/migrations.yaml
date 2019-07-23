@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Values.migrations.name }}"
+spec:
+  template:
+    spec:
+      containers:
+        - name: "{{ .Values.migrations.name }}"
+          image: "{{ .Values.django.image.name }}:{{ .Values.django.image.tag }}"
+          command: ['python', 'manage.py', 'migrate']
+          env:
+            - name: POSTGRES_USER
+              value: "{{ .Values.postgres.user }}"
+            - name: POSTGRES_PASSWORD
+              value: "{{ .Values.postgres.pass }}"
+            - name: POSTGRES_DB
+              value: "{{ .Values.postgres.db }}"              
+            - name: POSTGRES_HOST
+              value: "{{ .Values.postgresSvc.name }}"
+      restartPolicy: Never
+  backoffLimit: 5

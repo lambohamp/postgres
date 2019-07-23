@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  django:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-06-25T14:39:51.725524+03:00"
+    description: A Helm chart for Kubernetes
+    digest: aaf24aeea6a6cafd533be4f0ec2e395ae5a41f8daca16d75894c80abe0ca5f3f
+    name: django
+    urls:
+    - https://lambohamp.github.io/django/chart/django-0.1.0.tgz
+    version: 0.1.0
+generated: "2019-06-25T14:39:51.7235002+03:00"
