@@ -1,5 +1,4 @@
 
-
 postgresSvc:
   name: postgres-service
   ports:
@@ -8,18 +7,4 @@ postgresSvc:
 
 postgresEndpoint:
   subsets:
-    ip: 191.238.6.43
-
-
-
-
-#ingress:
-#  name: postgres
-#  enabled: true
-#  annotations:
-#    kubernetes.io/ingress.class: addon-http-application-routing
-#  hosts:
-#    host: postgres.31d94a21587448938742.eastus.aksapp.io
-#    paths:
-#      path: /
-#
+    ip: 0.0.0.0 # ip address of postgresql server
