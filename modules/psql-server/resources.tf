@@ -1,12 +1,13 @@
-resource "azurerm_resource_group" "gl" {
-  name     = "${var.rg}"
-  location = "${var.location}"
+resource "null_resource" "depends_on" {
+  triggers {
+    depends_on = "${join("", var.depends_on)}"
+  }
 }
 
 resource "azurerm_postgresql_server" "gl" {
   name                = "${var.server_name}"
   location            = "${var.location}"
-  resource_group_name = "${azurerm_resource_group.gl.name}"
+  resource_group_name = "${var.rg}"
 
   sku {
     name     = "B_Gen5_2"
@@ -23,12 +24,8 @@ resource "azurerm_postgresql_server" "gl" {
   administrator_login_password = "${var.password}"
   version                      = "10"
   ssl_enforcement              = "Enabled"
-}
 
-resource "azurerm_postgresql_database" "gltest" {
-  name                = "${var.db_name}"
-  resource_group_name = "${azurerm_resource_group.gl.name}"
-  server_name         = "${azurerm_postgresql_server.gl.name}"
-  charset             = "UTF8"
-  collation           = "English_United States.1252"
+  depends_on = [
+    "null_resource.depends_on",
+  ]
 }
