@@ -1,9 +1,9 @@
 replicaCount: 1
 
 postgres:
-  db: gldb
-  pass: Dallas13
-  user: dimas@gltesting
+  db: db
+  pass: pass
+  user: user
   port: 5432
 
 postgresSvc:
@@ -14,7 +14,7 @@ postgresSvc:
 
 postgresEndpoint:
   subsets:
-    ip: 191.238.6.43 # IP address of PostgreSQL server
+    ip: 0.0.0.0 # IP address of PostgreSQL server
 
 redis:
   name: master
